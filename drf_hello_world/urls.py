@@ -25,7 +25,10 @@ from drf_api.movie_list_create_api_view import MovieListCreateAPIView
 from drf_api.movie_retrieve_destroy_api_view import MovieRetrieveDestroyAPIView
 from drf_api.movie_retrieve_update_destroy_view import MovieRetrieveUpdateDestroyAPIView
 from drf_api.movie_create_api_view import MovieCreateAPIView
+from drf_api.movie_viewset_api import MovieViewSet
 from django.conf.urls import url
+from rest_framework.routers import DefaultRouter
+
 
 urlpatterns = [
     path('hello-world-api-func/', hello_world_api),
@@ -41,3 +44,9 @@ urlpatterns = [
     url('^movie-create-api/$', MovieCreateAPIView.as_view()),
     path('admin/', admin.site.urls)
 ]
+
+router = DefaultRouter()
+router.register(r'movies-viewset', MovieViewSet, basename='movies-viewset')
+
+urlpatterns = urlpatterns + router.urls
+
