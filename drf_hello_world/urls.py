@@ -26,6 +26,9 @@ from drf_api.movie_retrieve_destroy_api_view import MovieRetrieveDestroyAPIView
 from drf_api.movie_retrieve_update_destroy_view import MovieRetrieveUpdateDestroyAPIView
 from drf_api.movie_create_api_view import MovieCreateAPIView
 from drf_api.movie_viewset_api import MovieViewSet
+from drf_api.movie_generic_viewset_api import MovieGenericViewSet
+from drf_api.movie_model_view_set_api import MovieModelViewSet
+from drf_api.movie_read_only_model_view_set_api import MovieReadOnlyModelViewSet
 from django.conf.urls import url
 from rest_framework.routers import DefaultRouter
 
@@ -47,6 +50,10 @@ urlpatterns = [
 
 router = DefaultRouter()
 router.register(r'movies-viewset', MovieViewSet, basename='movies-viewset')
+router.register(r'movies-generic-viewset', MovieGenericViewSet, basename='movies-generic-viewset')
+router.register(r'movies-model-viewset', MovieModelViewSet, basename='movies-model-viewset')
+router.register(r'movies-read-only-model-viewset', MovieReadOnlyModelViewSet,
+                basename='movies-read-only-model-viewset')
 
 urlpatterns = urlpatterns + router.urls
 
