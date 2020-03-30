@@ -29,6 +29,7 @@ from drf_api.movie_viewset_api import MovieViewSet
 from drf_api.movie_generic_viewset_api import MovieGenericViewSet
 from drf_api.movie_model_view_set_api import MovieModelViewSet
 from drf_api.movie_read_only_model_view_set_api import MovieReadOnlyModelViewSet
+from drf_api.movie_custom_actions_api import MovieCustomActionsView
 from django.conf.urls import url
 from rest_framework.routers import DefaultRouter
 
@@ -54,6 +55,7 @@ router.register(r'movies-generic-viewset', MovieGenericViewSet, basename='movies
 router.register(r'movies-model-viewset', MovieModelViewSet, basename='movies-model-viewset')
 router.register(r'movies-read-only-model-viewset', MovieReadOnlyModelViewSet,
                 basename='movies-read-only-model-viewset')
-
+router.register(r'movies-custom-actions-viewset', MovieCustomActionsView,
+                basename='movies-custom-actions-viewset')
 urlpatterns = urlpatterns + router.urls
 
