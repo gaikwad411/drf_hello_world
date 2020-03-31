@@ -30,6 +30,7 @@ from drf_api.movie_generic_viewset_api import MovieGenericViewSet
 from drf_api.movie_model_view_set_api import MovieModelViewSet
 from drf_api.movie_read_only_model_view_set_api import MovieReadOnlyModelViewSet
 from drf_api.movie_custom_actions_api import MovieCustomActionsView
+from drf_api.csv_download_api_view import CSVDownloadViewSet
 from django.conf.urls import url
 from rest_framework.routers import DefaultRouter
 
@@ -46,6 +47,7 @@ urlpatterns = [
     url('^movie-retrieve-destroy-api/(?P<pk>\d+)/$', MovieRetrieveDestroyAPIView.as_view()),
     url('^movie-retrieve-update-destroy-api/(?P<pk>\d+)/$', MovieRetrieveUpdateDestroyAPIView.as_view()),
     url('^movie-create-api/$', MovieCreateAPIView.as_view()),
+    url('^csv-download-api/$', CSVDownloadViewSet.as_view()),
     path('admin/', admin.site.urls)
 ]
 
