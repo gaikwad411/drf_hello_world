@@ -31,7 +31,7 @@ from drf_api.movie_model_view_set_api import MovieModelViewSet
 from drf_api.movie_read_only_model_view_set_api import MovieReadOnlyModelViewSet
 from drf_api.movie_custom_actions_api import MovieCustomActionsView
 from drf_api.csv_download_api_view import CSVDownloadViewSet, FileDownloadAPIView
-from drf_api.file_upload_api import FileUploadUsingDBModel
+from drf_api.file_upload_api import FileUploadUsingDBModel, FileUploadWithoutDBModel
 from django.conf.urls import url
 from rest_framework.routers import DefaultRouter
 from django.conf import settings
@@ -53,6 +53,7 @@ urlpatterns = [
     url('^csv-download-api/$', CSVDownloadViewSet.as_view()),
     url('^file-download-api/$', FileDownloadAPIView.as_view()),
     url('^file-upload-using-db-model-api/$', FileUploadUsingDBModel.as_view()),
+    url('^file-upload-without-db-model-api/$', FileUploadWithoutDBModel.as_view()),
     path('admin/', admin.site.urls)
 ]
 

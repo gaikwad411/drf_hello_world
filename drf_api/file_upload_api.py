@@ -11,6 +11,9 @@ from .serializers import MovieSerializer
 from rest_framework.parsers import FileUploadParser
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.exceptions import ParseError
+from django.core.files import File
+from django.core.files.storage import default_storage
 
 
 class FileUploadUsingDBModel(APIView):
@@ -34,10 +37,32 @@ class FileUploadUsingDBModel(APIView):
 
 
 class FileUploadWithoutDBModel(APIView):
-    pass
+    """
+
+    curl -X POST -H "Content-Type: multipart/form-data"
+    -F "file=@poster.png"
+    http://localhost:8000/file-upload-without-db-model-api/
+
+    """
+    parser_class = (FileUploadParser, )
+
+    def post(self, request):
+        if 'file' not in request.data:
+            raise ParseError("Empty content")
+
+        f = request.data['file']
+
+        try:
+            myfile = File(f)
+            default_storage.save(myfile.name, myfile)
+        except Exception as e:
+            print(e)
+            raise ParseError("Could not process fie")
+
+        return Response({"status": "success"}, status=status.HTTP_200_OK)
 
 
-class MultipleFileUploads(APIView):
+class MultipleFilesUpload(APIView):
     pass
 
 
