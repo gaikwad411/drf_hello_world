@@ -31,8 +31,11 @@ from drf_api.movie_model_view_set_api import MovieModelViewSet
 from drf_api.movie_read_only_model_view_set_api import MovieReadOnlyModelViewSet
 from drf_api.movie_custom_actions_api import MovieCustomActionsView
 from drf_api.csv_download_api_view import CSVDownloadViewSet, FileDownloadAPIView
+from drf_api.file_upload_api import FileUploadUsingDBModel
 from django.conf.urls import url
 from rest_framework.routers import DefaultRouter
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 urlpatterns = [
@@ -49,6 +52,7 @@ urlpatterns = [
     url('^movie-create-api/$', MovieCreateAPIView.as_view()),
     url('^csv-download-api/$', CSVDownloadViewSet.as_view()),
     url('^file-download-api/$', FileDownloadAPIView.as_view()),
+    url('^file-upload-using-db-model-api/$', FileUploadUsingDBModel.as_view()),
     path('admin/', admin.site.urls)
 ]
 
@@ -62,3 +66,4 @@ router.register(r'movies-custom-actions-viewset', MovieCustomActionsView,
                 basename='movies-custom-actions-viewset')
 urlpatterns = urlpatterns + router.urls
 
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
