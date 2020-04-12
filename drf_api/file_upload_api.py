@@ -3,7 +3,7 @@
 1. File upload using db model
 2. File upload without db model
 3. Multiple file uploads
-4. File upload along with data
+
 
 """
 from rest_framework.views import APIView
@@ -57,7 +57,7 @@ class FileUploadWithoutDBModel(APIView):
             default_storage.save(myfile.name, myfile)
         except Exception as e:
             print(e)
-            raise ParseError("Could not process fie")
+            raise ParseError("Could not process file")
 
         return Response({"status": "success"}, status=status.HTTP_200_OK)
 
@@ -70,7 +70,7 @@ class MultipleFilesUpload(APIView):
     """
 
     def post(self, request):
-        files = dict((request.data).lists())['files']
+        files = dict(request.data.lists())['files']
 
         try:
             for file in files:
@@ -78,10 +78,6 @@ class MultipleFilesUpload(APIView):
                 default_storage.save(myfile.name, myfile)
         except Exception as e:
             print(e)
-            raise ParseError("Could not process fie")
+            raise ParseError("Could not process file")
 
         return Response({"status": "success"}, status=status.HTTP_200_OK)
-
-
-class FileUploadAlongWithData(APIView):
-    pass
