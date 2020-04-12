@@ -63,7 +63,24 @@ class FileUploadWithoutDBModel(APIView):
 
 
 class MultipleFilesUpload(APIView):
-    pass
+    """
+    curl -X POST -H "Content-Type: multipart/form-data" -F "files=@poster.png" -F "files=@poster.png"
+    http://localhost:8000/multiple-file-uploads-api/
+
+    """
+
+    def post(self, request):
+        files = dict((request.data).lists())['files']
+
+        try:
+            for file in files:
+                myfile = File(file)
+                default_storage.save(myfile.name, myfile)
+        except Exception as e:
+            print(e)
+            raise ParseError("Could not process fie")
+
+        return Response({"status": "success"}, status=status.HTTP_200_OK)
 
 
 class FileUploadAlongWithData(APIView):
